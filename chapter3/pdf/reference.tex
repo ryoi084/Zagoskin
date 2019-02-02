@@ -1,0 +1,83 @@
+\documentclass[platex, a4j, 9pt, dvipdfmx]{jsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{braket}
+\usepackage[left=0.5cm, right=0.5cm, top=0.5cm, bottom=0.5cm]{geometry}
+\setcounter{tocdepth}{2}
+\makeatletter
+\c@MaxMatrixCols=14
+\makeatother
+
+
+\begin{document}
+\section*{K\"all\'en-Lehmannの計算}
+
+有限温度系でのGreen関数は次のように表せる.
+\begin{align}
+    G_{\alpha\beta}(\bm{x}_1,t_1;\bm{x}_2,t_2) = -i{\rm Tr}\left(\hat{\rho}\mathcal{T}\psi_{\alpha}(\bm{x}_1,t_1)\psi_{\beta}^{\dagger}(\bm{x}_2,t_2)\right) \tag{3.10}
+\end{align}
+非対角であると仮定したので,
+\begin{align}
+    G(\bm{x}_1,t_1;\bm{x}_2,t_2) = -i{\rm Tr}\left(\hat{\rho}\mathcal{T}\psi(\bm{x}_1,t_1)\psi^{\dagger}(\bm{x}_2,t_2)\right) \tag{3.10'}
+\end{align}
+を評価すればよい.\\
+ここで,式(3.13)や完備関係式を挟むと
+\begin{align}
+    G(\bm{x}_1,t_1;\bm{x}_2,t_2) =& -i{\rm Tr}\left(\sum_{n}\rho_n\ket{n}\bra{n}\mathcal{T}\psi(\bm{x}_1,t_1)\sum_{m}\ket{m}\bra{m}\psi^{\dagger}(\bm{x}_2,t_2)\right) \\
+    =& -i\sum_{l}\bra{l}\left(\sum_{n}\rho_n\ket{n}\bra{n}\mathcal{T}\psi(\bm{x}_1,t_1)\sum_{m}\ket{m}\bra{m}\psi^{\dagger}(\bm{x}_2,t_2)\right)\ket{l}\\
+    =& -i\sum_{l,m,n}\left(\mathcal{T}\bra{l}\rho_n\ket{n}\bra{n}\psi(\bm{x}_1,t_1)\ket{m}\bra{m}\psi^{\dagger}(\bm{x}_2,t_2)\ket{l}\right)\\
+    =& -i\sum_{m,n}\left(\mathcal{T}\rho_n\bra{n}\psi(\bm{x}_1,t_1)\ket{m}\bra{m}\psi^{\dagger}(\bm{x}_2,t_2)\ket{n}\right)
+\end{align}
+式(2.21)によると, Heisenberg表示での$\psi_{\alpha}$をもちいて
+\begin{align}
+    \psi_{\alpha}(\bm{x},t) = e^{-i(\mathcal{P}\bm{x}-\mathcal{H}t)}\psi_{\alpha}e^{i(\mathcal{P}\bm{x}-\mathcal{H}t)} \tag{2.21}
+\end{align}
+と書き表せるので,
+\begin{align}
+    G(\bm{x}_1,t_1;\bm{x}_2,t_2) =& -i\sum_{m,n}\left(\mathcal{T}\rho_n\bra{n}e^{-i(\mathcal{P}\bm{x}_1-\mathcal{H}t_1)}\psi e^{i(\mathcal{P}\bm{x}_1-\mathcal{H}t_1)}\ket{m}\bra{m}e^{-i(\mathcal{P}\bm{x}_2-\mathcal{H}t_2)}\psi^{\dagger}e^{i(\mathcal{P}\bm{x}_2-\mathcal{H}t_2)}\ket{n}\right)\\
+    =& -i\sum_{m,n}\left(\mathcal{T}\rho_n\bra{n}e^{-i(\bm{P}_n\bm{x}_1-(E_n-\mu N_n)t_1)}\psi e^{i(\bm{P}_m\bm{x}_1-(E_m-\mu N_m)t_1)}\ket{m}\bra{m}e^{-i(\bm{P}_m\bm{x}_2-(E_m-\mu N_m)t_2)}\psi^{\dagger}e^{i(\bm{P}_n\bm{x}_2-(E_n-\mu N_n)t_2)}\ket{n}\right)\\
+    =& -i\sum_{m,n}\left(\mathcal{T}\rho_n\bra{n}e^{-i((\bm{P}_n-\bm{P}_m)\bm{x}_1-(E_n-\mu_n-E_m+\mu_m)t_1)}\psi\ket{m}\bra{m}\psi^{\dagger}e^{i((\bm{P}_n-\bm{P}_m)\bm{x}_2-(E_n-\mu N_n-E_m+\mu N_m)t_2)}\ket{n}\right)\\
+\end{align}
+ここで,
+\begin{align}
+    \bm{P}_{mn} =& \bm{P}_m-\bm{P}_n \nonumber\\
+    \omega_{mn} =& E_m-\mu N_m - (E_n-\mu N_n) \tag{3.16}
+\end{align}
+として書き換えると
+\begin{align}
+    G(\bm{x}_1,t_1;\bm{x}_2,t_2) =& -i\sum_{m,n}\left(\mathcal{T}e^{-i(-\bm{P}_{mn}\bm{x}_1+\omega_{mn}t_1)}\rho_n\bra{n}\psi\ket{m}\bra{m}\psi^{\dagger}\ket{n}e^{i(-\bm{P}_{mn}\bm{x}_2+\omega_{mn}t_2)}\right)\\
+    =& -i\theta(t_1-t_2)\sum_{m,n}\left(e^{-i(-\bm{P}_{mn}\bm{x}_1+\omega_{mn}t_1)}\rho_n\bra{n}\psi\ket{m}\bra{m}\psi^{\dagger}\ket{n}e^{i(-\bm{P}_{mn}\bm{x}_2+\omega_{mn}t_2)}\right)\nonumber\\
+    & -i(\mp\theta(t_2-t_1))\sum_{m,n}\left(e^{-i(-\bm{P}_{mn}\bm{x}_2+\omega_{mn}t_2)}\rho_n\bra{n}\psi^{\dagger}\ket{m}\bra{m}\psi\ket{n}e^{i(-\bm{P}_{mn}\bm{x}_1+\omega_{mn}t_1)}\right)\\
+    =& -i\theta(t_1-t_2)\sum_{m,n}\left(e^{-i(-\bm{P}_{mn}(\bm{x}_1-\bm{x}_2)+\omega_{mn}(t_1-t_2))}\rho_nA_{mn}\right)\nonumber\\
+    & -i(\mp\theta(t_2-t_1))\sum_{m,n}\left(e^{-i(\bm{P}_{mn}(\bm{x}_1-\bm{x}_2)-\omega_{mn}(t_1-t_2))}\rho_nA_{nm}\right)
+\end{align}
+\begin{align}
+    G(\bm{p},t_1;t_2) =& -i(2\pi)^3\theta(t_1-t_2)\sum_{m,n}\left(e^{-i\omega_{mn}(t_1-t_2)}\rho_nA_{mn}\right)\delta(\bm{p}-\bm{P}_{mn})\nonumber\\
+    & \pm i(2\pi)^3\theta(t_2-t_1)\sum_{m,n}\left(e^{i\omega_{mn}(t_1-t_2)}\rho_nA_{nm}\right)\delta(\bm{p}+\bm{P}_{mn})
+\end{align}
+\begin{align}
+    G(\bm{p},\omega) =& (2\pi)^3\sum_{m,n}\left(\frac{\rho_nA_{mn}\delta(\bm{p}-\bm{P}_{mn})}{\omega-\omega_{mn}+i0}\pm\frac{\rho_nA_{nm}\delta(\bm{p}+\bm{P}_{mn})}{\omega+\omega_{mn}-i0}\right)
+\end{align}
+第二項目について, $n,m$を逆転させると
+\begin{align}
+    G(\bm{p},\omega) =& (2\pi)^3\sum_{m,n}\left(\frac{\rho_nA_{mn}\delta(\bm{p}-\bm{P}_{mn})}{\omega-\omega_{mn}+i0}\pm\frac{\rho_mA_{mn}\delta(\bm{p}+\bm{P}_{nm})}{\omega+\omega_{nm}-i0}\right)\\
+    =& (2\pi)^3\sum_{m,n}\left(\frac{\rho_nA_{mn}\delta(\bm{p}-\bm{P}_{mn})}{\omega-\omega_{mn}+i0}\pm\frac{\rho_mA_{mn}\delta(\bm{p}-\bm{P}_{mn})}{\omega-\omega_{mn}-i0}\right)\\
+    =& (2\pi)^3\sum_{m,n}A_{mn}\delta(\bm{p}-\bm{P}_{mn})\left(\frac{\rho_n}{\omega-\omega_{mn}+i0}\pm\frac{\rho_m}{\omega-\omega_{mn}-i0}\right)
+\end{align}
+後半の$(\text{括弧})$について
+\begin{align}
+    \left(\frac{\rho_n}{\omega-\omega_{mn}+i0}\pm\frac{\rho_m}{\omega+\omega_{mn}-i0}\right) =& \left(\frac{e^{-\beta(E_n-\mu N_n-\Omega)}}{\omega-\omega_{mn}+i0}\pm\frac{e^{-\beta(E_m-\mu N_m-\Omega)}}{\omega-\omega_{mn}-i0}\right) \\
+    =& e^{-\beta(E_n-\mu N_n-\Omega)}\left(\frac{1}{\omega-\omega_{mn}+i0}\pm\frac{e^{-\beta((E_m-E_n)-\mu (N_m-N_n))}}{\omega-\omega_{mn}-i0}\right) \\
+    =& \rho_{n}\left(\frac{1}{\omega-\omega_{mn}+i0}\pm\frac{e^{-\beta\omega_{mn}}}{\omega-\omega_{mn}-i0}\right)
+\end{align}
+となるので, 最終的に
+\begin{align}
+    G(\bm{p},\omega) =& (2\pi)^3\sum_{m,n}\rho_{n}A_{mn}\delta(\bm{p}-\bm{P}_{mn})\left(\frac{1}{\omega-\omega_{mn}+i0}\pm\frac{e^{-\beta\omega_{mn}}}{\omega-\omega_{mn}-i0}\right)
+\end{align}
+
+
+
+\end{document}
